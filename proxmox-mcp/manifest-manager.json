@@ -1,0 +1,45 @@
+{
+  "dxt_version": "0.1",
+  "name": "proxmox-manager",
+  "display_name": "Proxmox Manager",
+  "version": "1.0.0",
+  "description": "Monitoring et contrôle de base du cluster Proxmox (token backup-manager).",
+  "long_description": "Lecture complète du cluster + start/stop VMs.\n\n- Vue cluster, nœuds, stockages\n- Status et config des VMs\n- Backups : liste, jobs planifiés, VMs non sauvegardées\n- Démarrer / arrêter des VMs (avec confirmation)",
+  "author": { "name": "androdomus" },
+  "server": {
+    "type": "node",
+    "entry_point": "server.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server.js"],
+      "env": {
+        "PROXMOX_TOKEN_ID":     "${user_config.token_id}",
+        "PROXMOX_TOKEN_SECRET": "${user_config.token_secret}"
+      }
+    }
+  },
+  "tools_generated": true,
+  "keywords": ["proxmox", "homelab", "vm", "backup", "monitoring"],
+  "license": "MIT",
+  "compatibility": {
+    "claude_desktop": ">=1.0.0",
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": { "node": ">=18.0.0" }
+  },
+  "user_config": {
+    "token_id": {
+      "type": "string",
+      "title": "Token ID",
+      "description": "Token API Proxmox (ex: root@pam!backup-manager)",
+      "sensitive": false,
+      "required": true
+    },
+    "token_secret": {
+      "type": "string",
+      "title": "Token Secret",
+      "description": "UUID secret du token",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}

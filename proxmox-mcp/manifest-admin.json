@@ -1,0 +1,45 @@
+{
+  "dxt_version": "0.1",
+  "name": "proxmox-admin",
+  "display_name": "Proxmox Admin",
+  "version": "1.0.0",
+  "description": "Administration complète Proxmox : snapshots, resize, clone, migrate, backup, LXC.",
+  "long_description": "Contrôle total du cluster avec token admin.\n\n- Snapshots : créer, rollback ⚠️, supprimer ⚠️\n- Config VM : CPU, RAM, tags, description\n- Disques : redimensionner\n- Backup à la demande\n- Migration entre nœuds\n- Clone de VMs\n- Gestion LXC complète\n- Logs de tâches (UPID)\n\n⚠️ Opérations destructives protégées par confirmed=true",
+  "author": { "name": "androdomus" },
+  "server": {
+    "type": "node",
+    "entry_point": "server.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server.js"],
+      "env": {
+        "PROXMOX_TOKEN_ID":     "${user_config.token_id}",
+        "PROXMOX_TOKEN_SECRET": "${user_config.token_secret}"
+      }
+    }
+  },
+  "tools_generated": true,
+  "keywords": ["proxmox", "homelab", "vm", "snapshot", "admin", "infrastructure"],
+  "license": "MIT",
+  "compatibility": {
+    "claude_desktop": ">=1.0.0",
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": { "node": ">=18.0.0" }
+  },
+  "user_config": {
+    "token_id": {
+      "type": "string",
+      "title": "Token ID Admin",
+      "description": "Token API admin Proxmox (ex: root@pam!admin-token)",
+      "sensitive": false,
+      "required": true
+    },
+    "token_secret": {
+      "type": "string",
+      "title": "Token Secret",
+      "description": "UUID secret du token admin",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}
