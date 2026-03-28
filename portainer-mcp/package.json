@@ -1,0 +1,10 @@
+{
+  "name": "portainer-mcp",
+  "version": "1.0.0",
+  "description": "Portainer Docker management MCP server",
+  "main": "server/index.js",
+  "dependencies": { "@modelcontextprotocol/sdk": "*" },
+  "engines": { "node": ">=18.0.0" },
+  "license": "MIT",
+  "author": "androdomus"
+}

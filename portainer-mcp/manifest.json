@@ -1,0 +1,31 @@
+{
+  "dxt_version": "0.1",
+  "name": "portainer-mcp",
+  "display_name": "Portainer Docker Manager",
+  "version": "1.0.0",
+  "description": "Gère containers Docker et stacks via l'API Portainer.",
+  "long_description": "Interface MCP vers Portainer pour l'infrastructure Docker.\n\n- Lister/inspecter les containers\n- Logs en temps réel\n- Start/Stop/Restart (confirmed=true)\n- Stacks Docker Compose\n- Images, réseaux, volumes\n- Info moteur Docker",
+  "author": { "name": "androdomus" },
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {
+        "PORTAINER_URL":      "${user_config.portainer_url}",
+        "PORTAINER_API_KEY":  "${user_config.api_key}",
+        "PORTAINER_ENDPOINT": "${user_config.endpoint_id}"
+      }
+    }
+  },
+  "tools_generated": true,
+  "keywords": ["docker", "portainer", "containers", "devops", "homelab"],
+  "license": "MIT",
+  "compatibility": { "claude_desktop": ">=1.0.0", "platforms": ["darwin","win32","linux"], "runtimes": { "node": ">=18.0.0" } },
+  "user_config": {
+    "portainer_url":  { "type": "string", "title": "URL Portainer",  "description": "Ex: https://192.168.1.26:9443", "required": true,  "default": "https://192.168.1.26:9443" },
+    "api_key":        { "type": "string", "title": "Clé API",        "description": "Token API Portainer",           "required": true,  "sensitive": true },
+    "endpoint_id":    { "type": "string", "title": "Endpoint ID",    "description": "ID environnement Docker",       "required": false, "default": "2" }
+  }
+}

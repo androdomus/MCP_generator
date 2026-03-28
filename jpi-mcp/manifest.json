@@ -1,0 +1,31 @@
+{
+  "dxt_version": "0.1",
+  "name": "jpi-mcp",
+  "display_name": "JPI Phone Control",
+  "version": "1.0.0",
+  "description": "Contrôle le téléphone Android via JPI : SMS, appel, toast, TTS, photo, variables.",
+  "long_description": "Interface MCP vers l'API JPI (JSON Phone Interface).\n\n- Envoyer des SMS\n- Passer des appels (confirmed=true)\n- Notifications toast\n- Text-to-Speech\n- Prendre une photo\n- Variables persistantes JPI\n- Vérifier l'état de l'appareil",
+  "author": { "name": "androdomus" },
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {
+        "JPI_HOST":      "${user_config.jpi_host}",
+        "JPI_PORT":      "${user_config.jpi_port}",
+        "LAURENT_PHONE": "${user_config.phone_number}"
+      }
+    }
+  },
+  "tools_generated": true,
+  "keywords": ["android", "phone", "sms", "jpi", "automation"],
+  "license": "MIT",
+  "compatibility": { "claude_desktop": ">=1.0.0", "platforms": ["darwin","win32","linux"], "runtimes": { "node": ">=18.0.0" } },
+  "user_config": {
+    "jpi_host":     { "type": "string",  "title": "IP téléphone",   "description": "IP Android (ex: 192.168.1.118)", "required": true, "default": "192.168.1.118" },
+    "jpi_port":     { "type": "string",  "title": "Port JPI",       "description": "Port app JPI (défaut: 8081)",    "required": false, "default": "8081" },
+    "phone_number": { "type": "string",  "title": "Numéro cible",   "description": "Numéro pour SMS/appels",         "required": true, "sensitive": true }
+  }
+}
